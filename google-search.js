@@ -168,7 +168,7 @@
     }
     nodesRefresher = refreshNodes;
 
-    const editQuestion = (cursorPosFunc) => {
+    const editSearchText = (cursorPosFunc) => {
         const qElem = document.querySelector("textarea[name='q']");
         if (qElem) {
             if (cursorPosFunc) {
@@ -180,13 +180,13 @@
         }
     }
 
-    Mousetrap.bind(["h"], () => { focusNode(0); }); // Home
-    Mousetrap.bind(["j"], () => { focusNode(focusedNodeIndex+1); }); // Down
-    Mousetrap.bind(["k"], () => { focusNode(focusedNodeIndex-1); }); // Up
-    Mousetrap.bind(["l"], () => { if (focusedNode?.href) newTab(focusedNode.href); }); // Open focused link
-    Mousetrap.bind(["a"], () => { editQuestion(qElem => { const end = qElem.value.length; qElem.setSelectionRange(end, end); }); }); // Append to question
-    Mousetrap.bind(["i"], () => { editQuestion(qElem => { qElem.setSelectionRange(0, 0); }); }); // Insert at question beginning
-    Mousetrap.bind(["s"], () => { editQuestion(qElem => { qElem.setSelectionRange(0, qElem.value.length); }); }); // Select question
+    Mousetrap.bind(["h"], () => { focusNode(0); return false; }); // Home
+    Mousetrap.bind(["j"], () => { focusNode(focusedNodeIndex+1); return false; }); // Down
+    Mousetrap.bind(["k"], () => { focusNode(focusedNodeIndex-1); return false; }); // Up
+    Mousetrap.bind(["l"], () => { if (focusedNode?.href) newTab(focusedNode.href); return false; }); // Open focused link
+    Mousetrap.bind(["a"], () => { editSearchText(qElem => { const end = qElem.value.length; qElem.setSelectionRange(end, end); }); return false; }); // Append to search text
+    Mousetrap.bind(["i"], () => { editSearchText(qElem => { qElem.setSelectionRange(0, 0); }); return false; }); // Insert at search text beginning
+    Mousetrap.bind(["s"], () => { editSearchText(qElem => { qElem.setSelectionRange(0, qElem.value.length); }); return false; }); // Select search text
     focusNode(0);
 
     mlog("end");
